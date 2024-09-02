@@ -35,7 +35,7 @@ df['island'] = df['island'].map({'Biscoe': 0, 'Dream': 1, 'Torgersen':2})
 # Create X and y variables
 X = df[['island', 'bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g', 'sex']]
 y = df['label']
-
+score = 0
 # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.33, random_state = 42)
 
@@ -93,10 +93,13 @@ else:
 if st.sidebar.button('Predict'):
   if model == 'Support Vector Machine':
      species = prediction(svc_model, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex)
+     score = svc_model.score(X_train, y_train)
   elif model == 'Logistic Regression':
      species = prediction(log_reg, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex)
+     score = log_reg.score(X_train, y_train)
   elif model == 'Random Forest Classifier':
      species = prediction(rf_clf, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex)
+     score = rf_clf.score(X_train, y_train)
   else:
     st.write("Please select a model")
     
@@ -113,8 +116,9 @@ if st.sidebar.button('Predict'):
         <div style="text-align: center;">
             <img src="{}" alt="{}" style="width: 300px; border-radius: 10px;"/>
         </div>
+        <p style="font-size:20.0px; color:#000;">Accuracy score of this model is: <p style=" font-size:25px; color:#000;">{}</p></p>
     </div>
-    """.format(species, species_images[species], species), unsafe_allow_html=True)
+    """.format(species, species_images[species], species,score), unsafe_allow_html=True)
 else:
    st.markdown("""
     <div style="background-color: #ffcccb; padding: 20px; border-radius: 10px; margin-top: 20px;">
