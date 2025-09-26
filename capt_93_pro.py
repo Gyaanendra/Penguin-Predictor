@@ -12,7 +12,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 
 # Load the DataFrame
-csv_file = 'https://s3-student-datasets-bucket.whjr.online/whitehat-ds-datasets/penguin.csv'
+csv_file = './penguins.csv'
 df = pd.read_csv(csv_file)
 
 # Display the first five rows of the DataFrame
@@ -125,3 +125,4 @@ else:
         <h3 style="color: #d32f2f; text-align: center;">Please select the appropriate settings and click Predict</h3>
     </div>
     """, unsafe_allow_html=True)
+
