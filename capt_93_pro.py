@@ -18,12 +18,8 @@ df = pd.read_csv(csv_file)
 # Display the first five rows of the DataFrame
 df.head()
 
-# Drop the NAN values
-df = df.dropna()
-
 # Add numeric column 'label' to resemble non numeric column 'species'
 df['label'] = df['species'].map({'Adelie': 0, 'Chinstrap': 1, 'Gentoo':2})
-
 
 # Convert the non-numeric column 'sex' to numeric in the DataFrame
 df['sex'] = df['sex'].map({'Male':0,'Female':1})
@@ -31,6 +27,8 @@ df['sex'] = df['sex'].map({'Male':0,'Female':1})
 # Convert the non-numeric column 'island' to numeric in the DataFrame
 df['island'] = df['island'].map({'Biscoe': 0, 'Dream': 1, 'Torgersen':2})
 
+# Drop NaN AFTER mapping (unmapped values become NaN)
+df = df.dropna()
 
 # Create X and y variables
 X = df[['island', 'bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g', 'sex']]
